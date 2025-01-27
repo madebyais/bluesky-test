@@ -17,6 +17,7 @@ This project is a demo of a web app that scrapes all types of Pokemon from the w
 ## Requirements
 
 - Python 3.11 or higher
+- Pip 25.0
 - Docker
 - Docker Compose
 
