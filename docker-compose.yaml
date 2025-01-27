@@ -5,8 +5,8 @@ services:
     command: python migrate.py
     volumes:
       - .:/app
-    environment:
-      - DATABASE_FILEPATH=/app/pokemon.db
+    env_file:
+      - .env
     networks:
       - pokemon-network
 
@@ -16,9 +16,8 @@ services:
     command: python scraper.py
     volumes:
       - .:/app
-    environment:
-      - DATABASE_FILEPATH=/app/pokemon.db
-      - SCRAPER_TARGET_URL=https://pokemondb.net/pokedex/all
+    env_file:
+      - .env
     depends_on:
       migration:
         condition: service_completed_successfully
@@ -33,8 +32,8 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    environment:
-      - DATABASE_FILEPATH=/app/pokemon.db
+    env_file:
+      - .env
     depends_on:
       scraper:
         condition: service_completed_successfully
