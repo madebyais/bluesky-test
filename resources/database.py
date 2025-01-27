@@ -1,9 +1,18 @@
-import sqlite3
+import os, sqlite3
+
+
+def get_db():
+    conn = sqlite3.connect(os.getenv("DATABASE_FILEPATH"))
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 class Database:
     def __init__(self):
-        self.conn = sqlite3.connect("pokemon.db")
+        pass
 
     def session(self):
-        return self.conn
+        conn = sqlite3.connect(os.getenv("DATABASE_FILEPATH"))
+        return conn

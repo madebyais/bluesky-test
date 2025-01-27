@@ -1,5 +1,4 @@
 import sqlite3
-
 from modules.pokemon.model import PokemonModel
 from modules.base.model import RepositoryResultModel
 
