@@ -1,6 +1,8 @@
 beautifulsoup4==4.12.3
 black==24.10.0
+fastapi==0.115.7
 pydantic==2.10.6
 pydantic-core==2.27.2
 python-dotenv==1.0.1
 requests==2.32.3
+uvicorn==0.34.0
