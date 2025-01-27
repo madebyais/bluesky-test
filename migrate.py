@@ -1,12 +1,17 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import sqlite3
+
+from resources.database import Database
 
 print("[MIGRATE] Migrating data ...")
 
-conn = sqlite3.connect("pokemon.db")
-
-cur = conn.cursor()
-
 try:
+    db = Database().session()
+
+    cur = db.cursor()
     cur.execute(
         """CREATE TABLE pokemon (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,11 +28,12 @@ try:
         speed INTEGER
     )"""
     )
-    conn.commit()
+
+    db.commit()
+    db.close()
 except sqlite3.OperationalError as e:
     print("[MIGRATE] Migrating data ... ERROR")
     print(f"[MIGRATE] Error: {str(e)}")
 
-conn.close()
 
 print("[MIGRATE] Migrating data ... DONE")
