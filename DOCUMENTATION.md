@@ -6,6 +6,6 @@ Build a Python app that scrapes all types of Pokemon into local database, and ma
 
 ## Tasks
 
-- [ ] Create a migration for the database (only create the database + table)
+- [x] Create a migration for the database (only create the database + table)
 - [ ] Create a python script to scrap all types of Pokemon from the website and save them into the database
 - [ ] Create an API to retrieve all Pokemon from the database using FastAPI library
