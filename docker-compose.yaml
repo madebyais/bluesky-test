@@ -1,0 +1,46 @@
+services:
+  migration:
+    container_name: pokemon-migration
+    build: .
+    command: python migrate.py
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_FILEPATH=/app/pokemon.db
+    networks:
+      - pokemon-network
+
+  scraper:
+    container_name: pokemon-scraper
+    build: .
+    command: python scraper.py
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_FILEPATH=/app/pokemon.db
+      - SCRAPER_TARGET_URL=https://pokemondb.net/pokedex/all
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+    networks:
+      - pokemon-network
+
+  web:
+    container_name: pokemon-api
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_FILEPATH=/app/pokemon.db
+    depends_on:
+      scraper:
+        condition: service_completed_successfully
+    networks:
+      - pokemon-network
+
+networks:
+  pokemon-network:
+    driver: bridge

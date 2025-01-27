@@ -1,0 +1,6 @@
+.vscode
+.git
+.gitignore
+.env
+.DS_Store
+pokemon.db
